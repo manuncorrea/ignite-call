@@ -21,5 +21,5 @@ export const FomrAnnotation = styled('div', {
 })
 
 export const FormAnnotationError = styled(Text, {
-  color: 'red',
+  color: '#f75a68',
 })
