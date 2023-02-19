@@ -1,3 +1,4 @@
+import { api } from '@/src/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
 import { useRouter } from 'next/router'
@@ -39,10 +40,17 @@ export default function Register() {
     if (router.query.username) {
       setValue('username', String(router.query.username))
     }
-  }, [router.query?.user, setValue])
+  }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -62,7 +70,7 @@ export default function Register() {
           <Text size="sm">Nome de usuário</Text>
           <TextInput
             prefix="ignite.com/"
-            placeholder="seu-usuario"
+            placeholder="seu-usuário"
             {...register('username')}
           />
           {errors.username && (
@@ -71,7 +79,7 @@ export default function Register() {
         </label>
 
         <label>
-          <Text size="sm">Nome Completo</Text>
+          <Text size="sm">Nome completo</Text>
           <TextInput placeholder="Seu nome" {...register('name')} />
           {errors.name && (
             <FormError size="sm">{errors.name.message}</FormError>
@@ -79,7 +87,7 @@ export default function Register() {
         </label>
 
         <Button type="submit" disabled={isSubmitting}>
-          Próximo Passo
+          Próximo passo
           <ArrowRight />
         </Button>
       </Form>
