@@ -29,7 +29,7 @@ export const IntervalDay = styled('div', {
   gap: '$3',
 })
 
-export const IntervalInpusts = styled('div', {
+export const IntervalInputs = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$2',
