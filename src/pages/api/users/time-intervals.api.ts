@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { z } from 'zod'
 import { buildNextAuthOptions } from '../auth/[...nextauth].api'
 
-const timeIntervalBodySchema = z.object({
+const timeIntervalsBodySchema = z.object({
   intervals: z.array(
     z.object({
       weekDay: z.number(),
@@ -32,7 +32,7 @@ export default async function handler(
     return res.status(401).end()
   }
 
-  const { intervals } = timeIntervalBodySchema.parse(req.body)
+  const { intervals } = timeIntervalsBodySchema.parse(req.body)
 
   await Promise.all(
     intervals.map((interval) => {
@@ -41,7 +41,7 @@ export default async function handler(
           week_day: interval.weekDay,
           time_start_in_minutes: interval.startTimeInMinutes,
           time_end_in_minutes: interval.endTimeInMinutes,
-          userId: session.user?.id,
+          user_id: session.user?.id,
         },
       })
     }),
