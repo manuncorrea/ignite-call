@@ -10,8 +10,6 @@ export default async function handler(
   if (req.method !== 'GET') {
     return res.status(405).end()
   }
-  // eslint-disable-next-line no-debugger
-  debugger
   const username = String(req.query.username)
   const { date } = req.query
 
